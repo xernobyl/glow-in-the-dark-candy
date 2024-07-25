@@ -1,0 +1,41 @@
+#pragma warning(disable: 4002)
+
+#define FS(a) FS_##a,
+enum{ FRAGMENTSHADERS };
+#undef FS
+
+#define FS(a) #a,
+static const char *fragmentshaders[] = { FRAGMENTSHADERS };
+#undef FS
+
+//
+
+#define VS(a) VS_##a,
+#define _VS(a, b) VS_##a = b,
+enum{ VERTEXSHADERS };
+#undef _VS
+#undef VS
+
+#define VS(a) #a,
+#define _VS VS
+static const char *vertexshaders[] = { VERTEXSHADERS };
+#undef _VS
+#undef VS
+
+//
+
+#define GS(a) GS_##a,
+#define _GS(a, b) GS_##a = b,
+enum{ GEOMETRYSHADERS };
+#undef _GS
+#undef GS
+
+#ifdef GEOMETRYSHADERS
+#define GS(a) #a,
+#define _GS GS
+static const char *geometryshaders[] = { GEOMETRYSHADERS };
+#undef _GS
+#undef GS
+#endif
+
+#pragma warning(default: 4002)
